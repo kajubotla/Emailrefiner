@@ -1,71 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmailRefiner</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .premium-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
-        .emerald-btn { background-color: #059669; color: white; }
-        .emerald-btn:hover { background-color: #047857; }
-        .active-btn { background-color: #065f46 !important; color: white !important; }
-    </style>
-</head>
-<body class="py-10 px-4">
-
-    <!-- نیویگیشن بار -->
-    <nav class="max-w-2xl mx-auto mb-6 flex justify-center gap-4 text-emerald-800 font-bold">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-
-    <div class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem]">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-extrabold text-emerald-950 tracking-tighter">EmailRefiner</h1>
-        </div>
-
-        <!-- ٹون بٹن (Professional, Friendly وغیرہ) -->
-        <div class="grid grid-cols-2 gap-3 mb-6">
-            <button onclick="setTone(this, 'Professional')" class="tone-btn active-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Professional</button>
-            <button onclick="setTone(this, 'Friendly')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Friendly</button>
-            <button onclick="setTone(this, 'Formal')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Formal</button>
-            <button onclick="setTone(this, 'Concise')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Concise</button>
-        </div>
-
-        <textarea id="input" class="w-full p-5 border-2 border-emerald-100 rounded-2xl mb-6 outline-none focus:ring-2 focus:ring-emerald-500 min-h-[150px]" placeholder="Type your draft here..."></textarea>
-        
-        <button onclick="refine()" class="w-full emerald-btn py-4 rounded-2xl font-bold text-lg shadow-lg transition-all">Refine My Email</button>
-
-        <div id="outputArea" class="hidden mt-8 border-t pt-6">
-            <div id="output" class="w-full p-6 bg-slate-50 border-2 border-emerald-100 rounded-2xl text-slate-700 leading-relaxed whitespace-pre-wrap"></div>
-        </div>
-    </div>
-
-    <script>
-        let currentTone = 'Professional';
-        function setTone(btn, tone) {
-            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active-btn'));
-            btn.classList.add('active-btn');
-            currentTone = tone;
-        }
         function refine() {
             const input = document.getElementById('input').value;
             if(!input) return;
+
             const responses = {
-                "Professional": "Dear Team,\n\nI am writing to formally request leave...",
-                "Friendly": "Hi everyone! Just wanted to let you know...",
-                "Formal": "To the Management,\n\nThis is to formally notify you...",
-                "Concise": "Team,\n\nRequesting leave for a few days..."
+                "Professional": "Dear Team,\n\nI am writing to formally request a leave of absence due to unforeseen personal obligations. I have taken the necessary steps to ensure that all my ongoing projects and responsibilities are well-managed during my absence. I would appreciate your understanding and professional consideration regarding this request. I look forward to your positive response.\n\nBest Regards,\n[Your Name]",
+                
+                "Friendly": "Hi everyone!\n\nI hope you're all doing well. I am reaching out to let you know that I need to take a few days off for some personal matters. I’ve made sure that all my tasks are up to date so that things keep running smoothly while I'm away. Thanks so much for your support and understanding!\n\nBest wishes,\n[Your Name]",
+                
+                "Formal": "To the Management,\n\nThis is to formally notify you of my request for a leave of absence, effective immediately, due to unforeseen personal obligations. I assure you that all ongoing projects have been transitioned and are being well-managed to prevent any disruption. I appreciate your professional consideration of this request and await your approval.\n\nRespectfully,\n[Your Name]",
+                
+                "Concise": "Dear Team,\n\nI am requesting a leave of absence for a few days due to personal matters. I have ensured that my current tasks are covered and in good hands. Thank you for your cooperation and understanding.\n\nRegards,\n[Your Name]"
             };
+
             document.getElementById('output').innerText = responses[currentTone];
             document.getElementById('outputArea').classList.remove('hidden');
         }
-    </script>
-</body>
-</html>
