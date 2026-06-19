@@ -65,32 +65,22 @@
         }
 
         function refine() {
-            const input = document.getElementById('input').value;
+            const input = document.getElementById('input').value.trim();
             if(!input) return;
 
-            const responses = {
-                "Professional": [
-                    "Dear Team,\n\nI am writing to formally request leave due to urgent personal commitments. I have ensured all my tasks are current. Thank you for your understanding.\n\nBest Regards,\n[Your Name]",
-                    "Dear Team,\n\nI am requesting leave for personal matters. I've updated my status on all pending items to ensure no disruption. I appreciate your support.\n\nBest Regards,\n[Your Name]"
-                ],
-                "Friendly": [
-                    "Hi everyone!\n\nJust wanted to let you know I need to take a few days off for personal reasons. I've finished up my tasks, so everything should be smooth. Catch you soon!\n\nBest,\n[Your Name]",
-                    "Hey team!\n\nI'll be out for a bit for some personal things. Don't worry, all my work is under control. See you when I'm back!\n\nBest,\n[Your Name]"
-                ],
-                "Formal": [
-                    "To the Management,\n\nThis is to formally notify you of my request for leave of absence due to personal obligations. I assure you that all ongoing projects are well-managed.\n\nRespectfully,\n[Your Name]",
-                    "Dear Management,\n\nPlease accept this notification regarding my upcoming leave of absence. All current responsibilities have been handed over appropriately.\n\nRespectfully,\n[Your Name]"
-                ],
-                "Concise": [
-                    "Team,\n\nRequesting leave for a few days. Work is covered. Will be back shortly.\n\nRegards,\n[Your Name]",
-                    "Team,\n\nTaking leave for personal matters. All tasks are up to date. Back soon.\n\nRegards,\n[Your Name]"
-                ]
-            };
-
-            const options = responses[currentTone];
-            const randomIndex = Math.floor(Math.random() * options.length);
+            let outputText = "";
             
-            document.getElementById('output').innerText = options[randomIndex];
+            if (currentTone === 'Professional') {
+                outputText = "Dear Recipient,\n\nI hope this email finds you well.\n\n" + input + "\n\nThank you for your time and consideration. Looking forward to your response.\n\nBest Regards,\n[Your Name]";
+            } else if (currentTone === 'Friendly') {
+                outputText = "Hi there,\n\nI hope you're having a great day! \n\n" + input + "\n\nLet me know what you think. Thanks!\n\nBest,\n[Your Name]";
+            } else if (currentTone === 'Formal') {
+                outputText = "Dear Sir/Madam,\n\nI am writing to bring the following matter to your attention:\n\n" + input + "\n\nI appreciate your attention to this request.\n\nRespectfully,\n[Your Name]";
+            } else if (currentTone === 'Concise') {
+                outputText = "Hi,\n\nRegarding the following:\n" + input + "\n\nPlease let me know your thoughts.\n\nRegards,\n[Your Name]";
+            }
+
+            document.getElementById('output').innerText = outputText;
             document.getElementById('outputArea').classList.remove('hidden');
         }
 
