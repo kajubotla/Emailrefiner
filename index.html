@@ -3,63 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmailRefiner - All in One</title>
+    <title>EmailRefiner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .premium-card { background: #ffffff; border: 1px solid #e2e8f0; }
-        .active-tab { background-color: #059669 !important; color: white !important; }
-        .hidden-section { display: none; }
+        .premium-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .emerald-btn { background-color: #059669; color: white; }
+        .emerald-btn:hover { background-color: #047857; }
+        .active-btn { background-color: #065f46 !important; color: white !important; }
     </style>
 </head>
 <body class="py-10 px-4">
 
-    <div class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem] shadow-xl">
-        <!-- Navigation -->
-        <nav class="flex justify-center space-x-4 mb-8 flex-wrap">
-            <button onclick="showSection('home')" class="px-4 py-2 rounded-lg font-bold text-emerald-700">Home</button>
-            <button onclick="showSection('about')" class="px-4 py-2 rounded-lg font-bold text-emerald-700">About</button>
-            <button onclick="showSection('terms')" class="px-4 py-2 rounded-lg font-bold text-emerald-700">Terms</button>
-            <button onclick="showSection('contact')" class="px-4 py-2 rounded-lg font-bold text-emerald-700">Contact</button>
-        </nav>
+    <!-- نیویگیشن بار -->
+    <nav class="max-w-2xl mx-auto mb-6 flex justify-center gap-4 text-emerald-800 font-bold">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+    </nav>
 
-        <!-- Home Section (Tool) -->
-        <div id="home" class="section">
-            <h1 class="text-3xl font-extrabold text-center text-emerald-950 mb-6">EmailRefiner</h1>
-            <textarea id="input" class="w-full p-4 border rounded-xl mb-4" placeholder="Type your draft here..."></textarea>
-            <button onclick="refine()" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold">Refine Email</button>
-            <div id="outputArea" class="hidden mt-6 p-4 bg-slate-50 border rounded-xl" id="output"></div>
+    <div class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem]">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-emerald-950 tracking-tighter">EmailRefiner</h1>
         </div>
 
-        <!-- Other Sections -->
-        <div id="about" class="section hidden-section">
-            <h2 class="text-2xl font-bold mb-4">About Us</h2>
-            <p>EmailRefiner آپ کے ڈرافٹس کو پروفیشنل ای میلز میں تبدیل کرنے کا ایک بہترین ٹول ہے۔</p>
+        <!-- ٹون بٹن (Professional, Friendly وغیرہ) -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <button onclick="setTone(this, 'Professional')" class="tone-btn active-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Professional</button>
+            <button onclick="setTone(this, 'Friendly')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Friendly</button>
+            <button onclick="setTone(this, 'Formal')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Formal</button>
+            <button onclick="setTone(this, 'Concise')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Concise</button>
         </div>
 
-        <div id="terms" class="section hidden-section">
-            <h2 class="text-2xl font-bold mb-4">Terms & Conditions</h2>
-            <p>ہماری سروس استعمال کرنے کے لیے آپ کو ہماری پالیسیوں کا احترام کرنا ہوگا۔</p>
-        </div>
+        <textarea id="input" class="w-full p-5 border-2 border-emerald-100 rounded-2xl mb-6 outline-none focus:ring-2 focus:ring-emerald-500 min-h-[150px]" placeholder="Type your draft here..."></textarea>
+        
+        <button onclick="refine()" class="w-full emerald-btn py-4 rounded-2xl font-bold text-lg shadow-lg transition-all">Refine My Email</button>
 
-        <div id="contact" class="section hidden-section">
-            <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
-            <p>رابطہ کریں: <strong>Qaraar1988@gmail.com</strong></p>
+        <div id="outputArea" class="hidden mt-8 border-t pt-6">
+            <div id="output" class="w-full p-6 bg-slate-50 border-2 border-emerald-100 rounded-2xl text-slate-700 leading-relaxed whitespace-pre-wrap"></div>
         </div>
     </div>
 
     <script>
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden-section'));
-            document.getElementById(id).classList.remove('hidden-section');
+        let currentTone = 'Professional';
+        function setTone(btn, tone) {
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active-btn'));
+            btn.classList.add('active-btn');
+            currentTone = tone;
         }
-
         function refine() {
             const input = document.getElementById('input').value;
-            const output = document.getElementById('outputArea');
-            output.innerText = "Refined: " + input.toUpperCase(); // یہاں آپ اپنا اصلی لاجک لگا سکتے ہیں
-            output.classList.remove('hidden');
+            if(!input) return;
+            const responses = {
+                "Professional": "Dear Team,\n\nI am writing to formally request leave...",
+                "Friendly": "Hi everyone! Just wanted to let you know...",
+                "Formal": "To the Management,\n\nThis is to formally notify you...",
+                "Concise": "Team,\n\nRequesting leave for a few days..."
+            };
+            document.getElementById('output').innerText = responses[currentTone];
+            document.getElementById('outputArea').classList.remove('hidden');
         }
     </script>
 </body>
