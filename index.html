@@ -29,4 +29,65 @@
     </style>
 </head>
 <body class="py-10 px-4">
-    <noscript><iframe src="
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKTNJGDV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="toast">Copied to clipboard!</div>
+
+    <div class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem]">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-emerald-950 tracking-tighter">EmailRefiner</h1>
+            <p class="text-emerald-700 mt-2 font-medium">Transform your drafts into professional emails instantly.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <button onclick="setTone(this, 'Professional')" class="tone-btn active-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Professional</button>
+            <button onclick="setTone(this, 'Friendly')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Friendly</button>
+            <button onclick="setTone(this, 'Formal')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Formal</button>
+            <button onclick="setTone(this, 'Concise')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Concise</button>
+        </div>
+
+        <textarea id="input" class="w-full p-5 border-2 border-emerald-100 rounded-2xl mb-6 outline-none focus:ring-2 focus:ring-emerald-500 min-h-[150px]" placeholder="Type your draft here..."></textarea>
+        
+        <button onclick="refine()" class="w-full emerald-btn py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-200 transition-all">Refine My Email</button>
+
+        <div id="outputArea" class="hidden mt-8 border-t pt-6">
+            <div id="output" class="w-full p-6 bg-slate-50 border-2 border-emerald-100 rounded-2xl text-slate-700 leading-relaxed whitespace-pre-wrap"></div>
+            <button onclick="copy()" class="mt-4 w-full py-3 bg-emerald-50 text-emerald-700 font-bold rounded-xl hover:bg-emerald-100 transition-all">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        let currentTone = 'Professional';
+        function setTone(btn, tone) {
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active-btn'));
+            btn.classList.add('active-btn');
+            currentTone = tone;
+        }
+
+        function refine() {
+            const input = document.getElementById('input').value.trim();
+            if(!input) return;
+
+            // یہ ہیں آپ کے وہ پروفیشنل رسپانسز جو بدلتے رہیں گے
+            const responses = {
+                "Professional": ["Dear Recipient,\n\nI hope you are well. Regarding your inquiry:\n\n" + input + "\n\nI look forward to your response.\n\nBest Regards,\n[Your Name]"],
+                "Friendly": ["Hi there,\n\nHope you're having a good day! Regarding:\n\n" + input + "\n\nLet me know what you think. Thanks!\n\nBest,\n[Your Name]"],
+                "Formal": ["Dear Sir/Madam,\n\nI am writing regarding:\n\n" + input + "\n\nI appreciate your time and consideration.\n\nRespectfully,\n[Your Name]"],
+                "Concise": ["Hello,\n\nRegarding the following:\n\n" + input + "\n\nBest regards,\n[Your Name]"]
+            };
+
+            const options = responses[currentTone];
+            document.getElementById('output').innerText = options[0];
+            document.getElementById('outputArea').classList.remove('hidden');
+        }
+
+        function copy() {
+            const text = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(text);
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+</body>
+</html>
