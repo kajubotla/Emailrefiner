@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="Googleec531d8172ec952e" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailRefiner - Professional Email Rewriter & Drafting Tool</title>
+    <meta name="description" content="Transform your rough drafts into professional, polished emails instantly with EmailRefiner. Free, fast, and easy email editing tool for everyone.">
+    <meta name="keywords" content="Email Refiner, Professional Email Writer, Email Drafting Tool, Rewrite Emails, Business Email Helper">
+    <link rel="canonical" href="https://emailrefiner.site/" />
+    
+    <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-PKTNJGDV');</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmailRefiner</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
@@ -26,30 +31,31 @@
 </head>
 <body class="py-10 px-4">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKTNJGDV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
     <div id="toast">Copied to clipboard!</div>
 
-    <div class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem]">
-        <div class="text-center mb-8">
+    <main class="max-w-2xl mx-auto premium-card p-8 rounded-[2rem]">
+        <header class="text-center mb-8">
             <h1 class="text-4xl font-extrabold text-emerald-950 tracking-tighter">EmailRefiner</h1>
-            <p class="text-emerald-700 mt-2 font-medium">Transform your drafts into professional emails instantly.</p>
-        </div>
+            <p class="text-emerald-700 mt-2 font-medium">Select a tone and generate unlimited variations.</p>
+        </header>
 
-        <div class="grid grid-cols-2 gap-3 mb-6">
+        <section class="grid grid-cols-2 gap-3 mb-6">
             <button onclick="setTone(this, 'Professional')" class="tone-btn active-btn p-3 rounded-xl border border-emerald-200 font-semibold transition-all">Professional</button>
             <button onclick="setTone(this, 'Friendly')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Friendly</button>
             <button onclick="setTone(this, 'Formal')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Formal</button>
             <button onclick="setTone(this, 'Concise')" class="tone-btn p-3 rounded-xl border border-emerald-200 font-semibold hover:border-emerald-600 transition-all">Concise</button>
-        </div>
+        </section>
 
-        <textarea id="input" class="w-full p-5 border-2 border-emerald-100 rounded-2xl mb-6 outline-none focus:ring-2 focus:ring-emerald-500 min-h-[150px]" placeholder="Type your draft here..."></textarea>
+        <textarea id="input" class="w-full p-5 border-2 border-emerald-100 rounded-2xl mb-6 outline-none focus:ring-2 focus:ring-emerald-500 min-h-[150px]" placeholder="Type your rough draft here..."></textarea>
         
-        <button id="refineBtn" onclick="refine()" class="w-full emerald-btn py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-200 transition-all">Refine My Email</button>
+        <button onclick="refine()" class="w-full emerald-btn py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-200 transition-all">Refine & Get Variation</button>
 
-        <div id="outputArea" class="hidden mt-8 border-t pt-6">
+        <section id="outputArea" class="hidden mt-8 border-t pt-6">
             <div id="output" class="w-full p-6 bg-slate-50 border-2 border-emerald-100 rounded-2xl text-slate-700 leading-relaxed whitespace-pre-wrap"></div>
             <button onclick="copy()" class="mt-4 w-full py-3 bg-emerald-50 text-emerald-700 font-bold rounded-xl hover:bg-emerald-100 transition-all">Copy to Clipboard</button>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
         let currentTone = 'Professional';
@@ -59,37 +65,37 @@
             currentTone = tone;
         }
 
-        async function refine() {
+        function refine() {
             const input = document.getElementById('input').value.trim();
-            const btn = document.getElementById('refineBtn');
             if(!input) return;
 
-            btn.innerText = "Refining...";
-            btn.disabled = true;
+            const templates = {
+                "Professional": [
+                    `Dear Recipient,\n\nI am writing to formally address the following matter:\n\n${input}\n\nI look forward to your professional feedback.\n\nBest regards,\nAdil Mumtaz`,
+                    `Dear Team,\n\nI would like to bring the following to your attention:\n\n${input}\n\nThank you for your time and consideration.\n\nSincerely,\nAdil Mumtaz`,
+                    `To whom it may concern,\n\nRegarding the matter at hand:\n\n${input}\n\nI appreciate your assistance.\n\nRespectfully,\nAdil Mumtaz`
+                ],
+                "Friendly": [
+                    `Hi there,\n\nHope you're having a great day! I just wanted to share this:\n\n${input}\n\nLet me know what you think.\n\nBest,\nAdil Mumtaz`,
+                    `Hi,\n\nI wanted to quickly touch base with you regarding this:\n\n${input}\n\nThanks for your help!\n\nCheers,\nAdil Mumtaz`,
+                    `Hello,\n\nJust dropping a quick note to let you know about this:\n\n${input}\n\nLooking forward to hearing from you!\n\nBest,\nAdil Mumtaz`
+                ],
+                "Formal": [
+                    `Dear Sir/Madam,\n\nI am writing to formally bring the following to your attention:\n\n${input}\n\nI appreciate your professional attention to this matter.\n\nRespectfully,\nAdil Mumtaz`,
+                    `To the Management,\n\nPlease consider the following information regarding the current project:\n\n${input}\n\nI await your guidance.\n\nSincerely,\nAdil Mumtaz`,
+                    `Formal Notification:\n\nThis is to inform you regarding the following:\n\n${input}\n\nI appreciate your cooperation.\n\nBest regards,\nAdil Mumtaz`
+                ],
+                "Concise": [
+                    `Hello,\n\nRegarding the matter below:\n\n${input}\n\nBest regards,\nAdil Mumtaz`,
+                    `Hi,\n\nJust a quick update for you:\n\n${input}\n\nThanks,\nAdil Mumtaz`,
+                    `Hello,\n\nPlease see the following details:\n\n${input}\n\nBest,\nAdil Mumtaz`
+                ]
+            };
 
-            const apiKey = "YOUR_GEMINI_API_KEY"; // یہاں اپنی API Key ڈالیں
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Rewrite this email draft in a ${currentTone} tone. Make it high-level, professional, and context-aware. Draft: ${input}` }] }]
-                    })
-                });
-
-                const data = await response.json();
-                const refinedText = data.candidates[0].content.parts[0].text;
-
-                document.getElementById('output').innerText = refinedText;
-                document.getElementById('outputArea').classList.remove('hidden');
-            } catch (error) {
-                alert("Error: Please check your API Key or connection.");
-            } finally {
-                btn.innerText = "Refine My Email";
-                btn.disabled = false;
-            }
+            const options = templates[currentTone];
+            const randomIndex = Math.floor(Math.random() * options.length);
+            document.getElementById('output').innerText = options[randomIndex];
+            document.getElementById('outputArea').classList.remove('hidden');
         }
 
         function copy() {
